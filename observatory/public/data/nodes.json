@@ -1,0 +1,34 @@
+{
+  "totalNodes": 18472,
+  "nodesByCountry": [
+    { "country": "United States", "code": "US", "count": 3847 },
+    { "country": "Germany", "code": "DE", "count": 2651 },
+    { "country": "France", "code": "FR", "count": 1203 },
+    { "country": "Netherlands", "code": "NL", "count": 987 },
+    { "country": "Canada", "code": "CA", "count": 876 },
+    { "country": "United Kingdom", "code": "GB", "count": 743 },
+    { "country": "Japan", "code": "JP", "count": 612 },
+    { "country": "Singapore", "code": "SG", "count": 489 },
+    { "country": "Australia", "code": "AU", "count": 367 },
+    { "country": "South Korea", "code": "KR", "count": 298 },
+    { "country": "Brazil", "code": "BR", "count": 276 },
+    { "country": "Switzerland", "code": "CH", "count": 254 },
+    { "country": "Finland", "code": "FI", "count": 231 },
+    { "country": "Sweden", "code": "SE", "count": 218 },
+    { "country": "Russia", "code": "RU", "count": 197 },
+    { "country": "Ireland", "code": "IE", "count": 185 },
+    { "country": "Italy", "code": "IT", "count": 164 },
+    { "country": "Poland", "code": "PL", "count": 152 },
+    { "country": "Spain", "code": "ES", "count": 141 },
+    { "country": "Austria", "code": "AT", "count": 128 }
+  ],
+  "clientVersions": [
+    { "name": "Satoshi", "count": 16200 },
+    { "name": "btcd", "count": 420 },
+    { "name": "Bitcoin Knots", "count": 380 },
+    { "name": "bcoin", "count": 185 },
+    { "name": "Libbitcoin", "count": 92 },
+    { "name": "Other", "count": 195 }
+  ],
+  "lastUpdated": "2026-02-27T00:00:00.000Z"
+}

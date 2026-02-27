@@ -1,0 +1,16 @@
+{
+  "miningPools": [
+    { "name": "Foundry USA", "share": 27 },
+    { "name": "AntPool", "share": 21 },
+    { "name": "F2Pool", "share": 13 },
+    { "name": "ViaBTC", "share": 11 },
+    { "name": "Binance Pool", "share": 7 },
+    { "name": "MARA Pool", "share": 5 },
+    { "name": "Luxor", "share": 3 },
+    { "name": "SBI Crypto", "share": 2 },
+    { "name": "Braiins Pool", "share": 2 },
+    { "name": "Others", "share": 9 }
+  ],
+  "hashrate": 750,
+  "lastUpdated": "2026-02-27T00:00:00.000Z"
+}

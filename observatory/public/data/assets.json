@@ -1,0 +1,240 @@
+{
+  "assetRankings": [
+    {
+      "name": "Gold",
+      "type": "commodity",
+      "value": 18.5,
+      "flag": "🥇"
+    },
+    {
+      "name": "Apple",
+      "type": "company",
+      "value": 3.8,
+      "flag": "🍎"
+    },
+    {
+      "name": "NVIDIA",
+      "type": "company",
+      "value": 3.4,
+      "flag": "💻"
+    },
+    {
+      "name": "Microsoft",
+      "type": "company",
+      "value": 3.1,
+      "flag": "🪟"
+    },
+    {
+      "name": "Amazon",
+      "type": "company",
+      "value": 2.3,
+      "flag": "📦"
+    },
+    {
+      "name": "Saudi Aramco",
+      "type": "company",
+      "value": 1.8,
+      "flag": "🛢️"
+    },
+    {
+      "name": "Silver",
+      "type": "commodity",
+      "value": 1.7,
+      "flag": "🥈"
+    }
+  ],
+  "gdpRankings": [
+    {
+      "name": "United States",
+      "type": "country",
+      "value": 28.78,
+      "flag": "🇺🇸"
+    },
+    {
+      "name": "China",
+      "type": "country",
+      "value": 18.53,
+      "flag": "🇨🇳"
+    },
+    {
+      "name": "Germany",
+      "type": "country",
+      "value": 4.59,
+      "flag": "🇩🇪"
+    },
+    {
+      "name": "Japan",
+      "type": "country",
+      "value": 4.11,
+      "flag": "🇯🇵"
+    },
+    {
+      "name": "India",
+      "type": "country",
+      "value": 3.94,
+      "flag": "🇮🇳"
+    },
+    {
+      "name": "United Kingdom",
+      "type": "country",
+      "value": 3.5,
+      "flag": "🇬🇧"
+    },
+    {
+      "name": "France",
+      "type": "country",
+      "value": 3.13,
+      "flag": "🇫🇷"
+    },
+    {
+      "name": "Italy",
+      "type": "country",
+      "value": 2.33,
+      "flag": "🇮🇹"
+    },
+    {
+      "name": "Brazil",
+      "type": "country",
+      "value": 2.33,
+      "flag": "🇧🇷"
+    },
+    {
+      "name": "Canada",
+      "type": "country",
+      "value": 2.24,
+      "flag": "🇨🇦"
+    },
+    {
+      "name": "South Korea",
+      "type": "country",
+      "value": 1.72,
+      "flag": "🇰🇷"
+    }
+  ],
+  "wealthDistribution": [
+    {
+      "range": "> 10,000 BTC",
+      "addresses": 93,
+      "totalBtc": 3240000
+    },
+    {
+      "range": "1,000 - 10,000 BTC",
+      "addresses": 2089,
+      "totalBtc": 5120000
+    },
+    {
+      "range": "100 - 1,000 BTC",
+      "addresses": 15482,
+      "totalBtc": 4280000
+    },
+    {
+      "range": "10 - 100 BTC",
+      "addresses": 152331,
+      "totalBtc": 4150000
+    },
+    {
+      "range": "1 - 10 BTC",
+      "addresses": 841224,
+      "totalBtc": 2530000
+    },
+    {
+      "range": "0.1 - 1 BTC",
+      "addresses": 3820000,
+      "totalBtc": 1240000
+    },
+    {
+      "range": "< 0.1 BTC",
+      "addresses": 45000000,
+      "totalBtc": 440000
+    }
+  ],
+  "adoption": [
+    {
+      "country": "El Salvador",
+      "flag": "🇸🇻",
+      "year": 2021,
+      "type": "Legal Tender"
+    },
+    {
+      "country": "Central African Republic",
+      "flag": "🇨🇫",
+      "year": 2022,
+      "type": "Legal Tender"
+    },
+    {
+      "country": "United States",
+      "flag": "🇺🇸",
+      "year": 2024,
+      "type": "Spot ETF Approved"
+    },
+    {
+      "country": "United States",
+      "flag": "🇺🇸",
+      "year": 2025,
+      "type": "Strategic Bitcoin Reserve"
+    },
+    {
+      "country": "Bhutan",
+      "flag": "🇧🇹",
+      "year": 2023,
+      "type": "State Mining Operation"
+    },
+    {
+      "country": "Hong Kong",
+      "flag": "🇭🇰",
+      "year": 2024,
+      "type": "Spot ETF Approved"
+    }
+  ],
+  "currencies": [
+    {
+      "currency": "ARS",
+      "country": "Argentina",
+      "flag": "🇦🇷",
+      "m2GrowthPercent": 8500
+    },
+    {
+      "currency": "TRY",
+      "country": "Turkey",
+      "flag": "🇹🇷",
+      "m2GrowthPercent": 3200
+    },
+    {
+      "currency": "NGN",
+      "country": "Nigeria",
+      "flag": "🇳🇬",
+      "m2GrowthPercent": 2100
+    },
+    {
+      "currency": "JPY",
+      "country": "Japan",
+      "flag": "🇯🇵",
+      "m2GrowthPercent": 42
+    },
+    {
+      "currency": "KRW",
+      "country": "South Korea",
+      "flag": "🇰🇷",
+      "m2GrowthPercent": 68
+    },
+    {
+      "currency": "EUR",
+      "country": "Eurozone",
+      "flag": "🇪🇺",
+      "m2GrowthPercent": 55
+    },
+    {
+      "currency": "USD",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "m2GrowthPercent": 72
+    },
+    {
+      "currency": "CHF",
+      "country": "Switzerland",
+      "flag": "🇨🇭",
+      "m2GrowthPercent": 28
+    }
+  ],
+  "lastUpdated": "2026-02-27T16:45:04.014Z"
+}
