@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-card: #1a1a2e;
+  --border: #2a2a3e;
+  --text-primary: #e0e0e8;
+  --text-secondary: #8888a0;
+  --bitcoin-orange: #f7931a;
+  --bitcoin-gold: #ffd700;
+  --green: #00d4aa;
+  --red: #ff4757;
+  --blue: #4a9eff;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.card-header {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.bitcoin-orange { color: var(--bitcoin-orange); }
+.bitcoin-gold { color: var(--bitcoin-gold); }
+.green { color: var(--green); }
+.red { color: var(--red); }
+
+.glow-orange {
+  box-shadow: 0 0 20px rgba(247, 147, 26, 0.15);
+}
+
+.stat-big {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.quote-box {
+  border-left: 3px solid var(--bitcoin-orange);
+  padding: 12px 16px;
+  margin: 16px 0;
+  background: rgba(247, 147, 26, 0.05);
+  font-style: italic;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.whale-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+
+.badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.badge-exchange { background: #4a9eff22; color: #4a9eff; }
+.badge-gov { background: #ff475722; color: #ff4757; }
+.badge-institution { background: #ffd70022; color: #ffd700; }
+.badge-unknown { background: #88888822; color: #888; }
+
+.nav-item {
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+  color: var(--text-secondary);
+}
+
+.nav-item:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  background: var(--bg-card);
+  color: var(--bitcoin-orange);
+  border: 1px solid var(--bitcoin-orange);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
