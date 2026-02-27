@@ -1,29 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { fetchSatoshiData } from "@/lib/api";
 
-interface SatoshiData {
-  estimatedTotalBtc: number;
-  daysSinceLastActive: number;
-  lastActiveDate: string;
-  knownAddresses: number;
-  totalPatoshiBlocks: number;
-  wallets: {
-    address: string;
-    balance: number;
-    lastActive: string;
-    txCount: number;
-  }[];
-  percentOfSupply: string;
-}
+type SatoshiData = Awaited<ReturnType<typeof fetchSatoshiData>>;
 
 export default function SatoshiWallets() {
   const [data, setData] = useState<SatoshiData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/satoshi")
-      .then((r) => r.json())
+    fetchSatoshiData()
       .then(setData)
       .catch(console.error)
       .finally(() => setLoading(false));

@@ -10,41 +10,16 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import { fetchNationsData } from "@/lib/api";
 
-interface NationsData {
-  btcPrice: number;
-  btcMarketCap: number;
-  hashrate: number;
-  assetRankings: {
-    name: string;
-    type: string;
-    value: number;
-    flag: string;
-  }[];
-  gdpRankings: {
-    name: string;
-    type: string;
-    value: number;
-    flag: string;
-  }[];
-  btcGdpRank: number;
-  adoption: {
-    country: string;
-    flag: string;
-    year: number;
-    type: string;
-  }[];
-  attackCostPerDay: number;
-  networkSecurityBudget: string;
-}
+type NationsData = Awaited<ReturnType<typeof fetchNationsData>>;
 
 export default function BitcoinVsNations() {
   const [data, setData] = useState<NationsData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/nations")
-      .then((r) => r.json())
+    fetchNationsData()
       .then(setData)
       .catch(console.error)
       .finally(() => setLoading(false));

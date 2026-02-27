@@ -10,22 +10,16 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import { fetchNodeData } from "@/lib/api";
 
-interface NodeData {
-  totalNodes: number;
-  nodesByCountry: { country: string; code: string; count: number }[];
-  clientVersions: { name: string; count: number }[];
-  miningPools: { name: string; share: number }[];
-  nakamotoCoefficient: number;
-}
+type NodeData = Awaited<ReturnType<typeof fetchNodeData>>;
 
 export default function DecentralizationIndex() {
   const [data, setData] = useState<NodeData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/nodes")
-      .then((r) => r.json())
+    fetchNodeData()
       .then(setData)
       .catch(console.error)
       .finally(() => setLoading(false));

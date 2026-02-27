@@ -10,35 +10,16 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import { fetchSoundMoneyData } from "@/lib/api";
 
-interface SoundMoneyData {
-  btcPrice: number;
-  btcMarketCap: number;
-  totalSupply: number;
-  currentSupply: number;
-  btcInflationRate: number;
-  currencies: {
-    currency: string;
-    country: string;
-    flag: string;
-    devaluationPercent: number;
-    m2GrowthPercent: number;
-  }[];
-  globalM2: number;
-  m2YoYGrowth: number;
-  purchasingPower: {
-    year2015: { btcPrice: number; items: string[] };
-    year2025: { btcPrice: number; items: string[] };
-  } | null;
-}
+type SoundMoneyData = Awaited<ReturnType<typeof fetchSoundMoneyData>>;
 
 export default function SoundMoneyIndex() {
   const [data, setData] = useState<SoundMoneyData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/soundmoney")
-      .then((r) => r.json())
+    fetchSoundMoneyData()
       .then(setData)
       .catch(console.error)
       .finally(() => setLoading(false));
