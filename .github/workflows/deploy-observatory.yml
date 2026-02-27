@@ -2,7 +2,7 @@ name: Deploy Observatory to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [gh-pages]
     paths:
       - 'observatory/**'
       - '.github/workflows/deploy-observatory.yml'
