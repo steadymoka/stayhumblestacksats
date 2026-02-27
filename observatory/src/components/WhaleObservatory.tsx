@@ -10,28 +10,9 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import { fetchWhaleData } from "@/lib/api";
 
-interface WhaleData {
-  wealthDistribution: {
-    range: string;
-    addresses: number;
-    totalBtc: number;
-  }[];
-  labeledAddresses: {
-    address: string;
-    label: string;
-    type: "exchange" | "government" | "institution" | "unknown";
-  }[];
-  recentMovements: {
-    address: string;
-    label: string;
-    type: string;
-    balance: number;
-    lastTx: string;
-  }[];
-  giniCoefficient: number;
-  topHoldersPercentage: string;
-}
+type WhaleData = Awaited<ReturnType<typeof fetchWhaleData>>;
 
 const TYPE_BADGE: Record<string, { className: string; label: string }> = {
   exchange: { className: "badge badge-exchange", label: "Exchange" },
@@ -45,8 +26,7 @@ export default function WhaleObservatory() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/whales")
-      .then((r) => r.json())
+    fetchWhaleData()
       .then(setData)
       .catch(console.error)
       .finally(() => setLoading(false));
