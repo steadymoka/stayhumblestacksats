@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { fetchSatoshiData } from "@/lib/api";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 type SatoshiData = Awaited<ReturnType<typeof fetchSatoshiData>>;
 
 export default function SatoshiWallets() {
   const [data, setData] = useState<SatoshiData | null>(null);
   const [loading, setLoading] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     fetchSatoshiData()
@@ -40,15 +42,13 @@ export default function SatoshiWallets() {
       </div>
 
       {/* Main Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
+      <div className="grid-3">
         <div className="card" style={{ textAlign: "center" }}>
           <div className="stat-label">Estimated Holdings</div>
           <div className="stat-big bitcoin-gold">
             ~{(data.estimatedTotalBtc / 1000000).toFixed(1)}M BTC
           </div>
-          <div className="stat-label">
-            전체 공급량의 {data.percentOfSupply}%
-          </div>
+          <div className="stat-label">전체 공급량의 {data.percentOfSupply}%</div>
         </div>
 
         <div className="card" style={{ textAlign: "center" }}>
@@ -56,9 +56,7 @@ export default function SatoshiWallets() {
           <div className="stat-big green">
             {data.daysSinceLastActive.toLocaleString()}+
           </div>
-          <div className="stat-label">
-            마지막 활동: {data.lastActiveDate}
-          </div>
+          <div className="stat-label">마지막 활동: {data.lastActiveDate}</div>
         </div>
 
         <div className="card" style={{ textAlign: "center" }}>
@@ -75,7 +73,7 @@ export default function SatoshiWallets() {
                 marginRight: 8,
               }}
             />
-            <span className="stat-big green" style={{ fontSize: "1.4rem" }}>
+            <span className="stat-big green" style={{ fontSize: isMobile ? "1.1rem" : "1.4rem" }}>
               DORMANT
             </span>
           </div>
@@ -92,13 +90,7 @@ export default function SatoshiWallets() {
             블록(1~약 22,000)에서 특정 채굴 패턴이 관찰됩니다. 이 패턴의 주인으로
             추정되는 사토시 나카모토는 약 <span className="bitcoin-orange">110만 BTC</span>를 채굴한 것으로 추정됩니다.
           </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "12px",
-            }}
-          >
+          <div className="grid-2">
             <div
               style={{
                 background: "var(--bg-secondary)",
@@ -142,21 +134,25 @@ export default function SatoshiWallets() {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: "10px 14px",
+                padding: "10px 12px",
                 background: "var(--bg-secondary)",
                 borderRadius: 8,
                 fontSize: "0.8rem",
+                gap: "8px",
+                flexWrap: isMobile ? "wrap" : undefined,
               }}
             >
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <code style={{ color: "var(--text-primary)", fontSize: "0.75rem" }}>
-                  {wallet.address.slice(0, 16)}...{wallet.address.slice(-8)}
+              <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0, flex: 1 }}>
+                <code style={{ color: "var(--text-primary)", fontSize: isMobile ? "0.65rem" : "0.75rem", wordBreak: "break-all" }}>
+                  {isMobile
+                    ? `${wallet.address.slice(0, 12)}...${wallet.address.slice(-6)}`
+                    : `${wallet.address.slice(0, 16)}...${wallet.address.slice(-8)}`}
                 </code>
                 <span style={{ color: "var(--text-secondary)", fontSize: "0.7rem" }}>
                   Last active: {wallet.lastActive} · Tx: {wallet.txCount}
                 </span>
               </div>
-              <div style={{ textAlign: "right" }}>
+              <div style={{ textAlign: "right", flexShrink: 0 }}>
                 <div className="bitcoin-orange">{wallet.balance.toFixed(2)} BTC</div>
               </div>
             </div>

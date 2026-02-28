@@ -21,17 +21,11 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<SectionId>("decentralization");
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       {/* Top Bar */}
       <header
         style={{
-          padding: "16px 24px",
+          padding: "12px clamp(12px, 3vw, 24px)",
           borderBottom: "1px solid var(--border)",
           display: "flex",
           justifyContent: "space-between",
@@ -42,23 +36,24 @@ export default function Home() {
           zIndex: 100,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: 0 }}>
           <span
             style={{
-              fontSize: "1.4rem",
+              fontSize: "clamp(1rem, 4vw, 1.4rem)",
               fontWeight: 800,
               color: "var(--bitcoin-orange)",
+              flexShrink: 0,
             }}
           >
             {"{"}*{"}"}
           </span>
-          <div>
-            <div style={{ fontWeight: 700, fontSize: "0.95rem" }}>
+          <div style={{ minWidth: 0 }}>
+            <div style={{ fontWeight: 700, fontSize: "clamp(0.75rem, 2.5vw, 0.95rem)" }}>
               The Bitcoin Observatory
             </div>
             <div
               style={{
-                fontSize: "0.65rem",
+                fontSize: "0.6rem",
                 color: "var(--text-secondary)",
                 letterSpacing: "0.1em",
               }}
@@ -69,11 +64,12 @@ export default function Home() {
         </div>
         <div
           style={{
-            fontSize: "0.7rem",
+            fontSize: "0.65rem",
             color: "var(--text-secondary)",
             display: "flex",
             alignItems: "center",
-            gap: 8,
+            gap: 6,
+            flexShrink: 0,
           }}
         >
           <span
@@ -86,22 +82,25 @@ export default function Home() {
               background: "var(--green)",
             }}
           />
-          LIVE DATA
+          LIVE
         </div>
       </header>
 
-      {/* Navigation */}
+      {/* Navigation — scrollable on mobile */}
       <nav
         style={{
-          padding: "12px 24px",
+          padding: "8px clamp(8px, 2vw, 24px)",
           display: "flex",
-          gap: "8px",
+          gap: "6px",
           overflowX: "auto",
           background: "var(--bg-primary)",
           borderBottom: "1px solid var(--border)",
           position: "sticky",
-          top: 62,
+          top: 49,
           zIndex: 99,
+          WebkitOverflowScrolling: "touch",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
         }}
       >
         {SECTIONS.map((section) => (
@@ -109,9 +108,13 @@ export default function Home() {
             key={section.id}
             onClick={() => setActiveSection(section.id)}
             className={`nav-item ${activeSection === section.id ? "active" : ""}`}
-            style={{ border: activeSection === section.id ? undefined : "1px solid transparent", whiteSpace: "nowrap" }}
+            style={{
+              border: activeSection === section.id ? undefined : "1px solid transparent",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+            }}
           >
-            <span style={{ opacity: 0.5, marginRight: 6 }}>
+            <span style={{ opacity: 0.5, marginRight: 4 }}>
               {section.icon}
             </span>
             {section.label}
@@ -120,7 +123,15 @@ export default function Home() {
       </nav>
 
       {/* Content */}
-      <main style={{ flex: 1, padding: "24px", maxWidth: 1200, margin: "0 auto", width: "100%" }}>
+      <main
+        style={{
+          flex: 1,
+          padding: "clamp(10px, 3vw, 24px)",
+          maxWidth: 1200,
+          margin: "0 auto",
+          width: "100%",
+        }}
+      >
         {activeSection === "decentralization" && <DecentralizationIndex />}
         {activeSection === "satoshi" && <SatoshiWallets />}
         {activeSection === "whales" && <WhaleObservatory />}
@@ -131,19 +142,17 @@ export default function Home() {
       {/* Footer */}
       <footer
         style={{
-          padding: "24px",
+          padding: "16px",
           borderTop: "1px solid var(--border)",
           textAlign: "center",
-          fontSize: "0.75rem",
+          fontSize: "0.7rem",
           color: "var(--text-secondary)",
         }}
       >
-        <div style={{ marginBottom: 8 }}>
+        <div style={{ marginBottom: 6 }}>
           <span className="bitcoin-orange">Stay Humble, Stack Sats</span>
         </div>
-        <div>
-          Open Source · Powered by Bitnodes, mempool.space, CoinGecko APIs
-        </div>
+        <div>Open Source · Bitnodes, mempool.space, CoinGecko</div>
         <div style={{ marginTop: 4 }}>
           &quot;Don&apos;t trust, verify&quot; — Run your own node.
         </div>

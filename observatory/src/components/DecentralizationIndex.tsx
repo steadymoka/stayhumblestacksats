@@ -11,12 +11,14 @@ import {
   Cell,
 } from "recharts";
 import { fetchNodeData } from "@/lib/api";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 type NodeData = Awaited<ReturnType<typeof fetchNodeData>>;
 
 export default function DecentralizationIndex() {
   const [data, setData] = useState<NodeData | null>(null);
   const [loading, setLoading] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     fetchNodeData()
@@ -51,7 +53,7 @@ export default function DecentralizationIndex() {
       </div>
 
       {/* Node Count + Nakamoto Coefficient */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
+      <div className="grid-3">
         <div className="card" style={{ textAlign: "center" }}>
           <div className="stat-label">Reachable Full Nodes</div>
           <div className="stat-big bitcoin-orange">
@@ -65,9 +67,7 @@ export default function DecentralizationIndex() {
           <div className="stat-big" style={{ color: data.nakamotoCoefficient <= 3 ? "var(--red)" : data.nakamotoCoefficient <= 5 ? "var(--bitcoin-gold)" : "var(--green)" }}>
             {data.nakamotoCoefficient}
           </div>
-          <div className="stat-label">
-            네트워크 장악에 필요한 최소 엔티티 수
-          </div>
+          <div className="stat-label">네트워크 장악에 필요한 최소 엔티티 수</div>
         </div>
 
         <div className="card" style={{ textAlign: "center" }}>
@@ -82,20 +82,20 @@ export default function DecentralizationIndex() {
       {/* Node Distribution by Country */}
       <div className="card">
         <div className="card-header">Node Distribution by Country</div>
-        <div style={{ width: "100%", height: 300 }}>
+        <div style={{ width: "100%", height: isMobile ? 250 : 300 }}>
           <ResponsiveContainer>
             <BarChart
               data={data.nodesByCountry.slice(0, 10)}
               layout="vertical"
-              margin={{ left: 100 }}
+              margin={{ left: isMobile ? 10 : 100, right: 10 }}
             >
-              <XAxis type="number" stroke="#8888a0" fontSize={12} />
+              <XAxis type="number" stroke="#8888a0" fontSize={11} />
               <YAxis
                 dataKey="country"
                 type="category"
                 stroke="#8888a0"
-                fontSize={12}
-                width={90}
+                fontSize={isMobile ? 10 : 12}
+                width={isMobile ? 70 : 90}
               />
               <Tooltip
                 contentStyle={{
@@ -129,7 +129,7 @@ export default function DecentralizationIndex() {
               border: "1px solid rgba(255, 71, 87, 0.3)",
               borderRadius: 8,
               padding: "10px 14px",
-              fontSize: "0.8rem",
+              fontSize: "0.75rem",
               marginBottom: 16,
               color: "var(--red)",
             }}
@@ -140,14 +140,17 @@ export default function DecentralizationIndex() {
         )}
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {data.miningPools.map((pool, i) => (
-            <div key={pool.name} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div key={pool.name} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <span
                 style={{
-                  width: 120,
-                  fontSize: "0.8rem",
+                  width: isMobile ? 80 : 120,
+                  fontSize: isMobile ? "0.7rem" : "0.8rem",
                   color: "var(--text-secondary)",
                   textAlign: "right",
                   flexShrink: 0,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {pool.name}
@@ -163,10 +166,11 @@ export default function DecentralizationIndex() {
               </div>
               <span
                 style={{
-                  width: 40,
-                  fontSize: "0.8rem",
+                  width: 36,
+                  fontSize: "0.75rem",
                   color: "var(--text-primary)",
                   textAlign: "right",
+                  flexShrink: 0,
                 }}
               >
                 {pool.share}%
@@ -179,21 +183,21 @@ export default function DecentralizationIndex() {
       {/* Client Diversity */}
       <div className="card">
         <div className="card-header">Client Implementation Diversity</div>
-        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {data.clientVersions.map((client) => (
             <div
               key={client.name}
               style={{
                 background: "var(--bg-secondary)",
-                padding: "8px 14px",
+                padding: "6px 12px",
                 borderRadius: 8,
-                fontSize: "0.8rem",
+                fontSize: "0.75rem",
               }}
             >
               <span style={{ color: "var(--bitcoin-orange)" }}>
                 {client.name}
               </span>
-              <span style={{ color: "var(--text-secondary)", marginLeft: 8 }}>
+              <span style={{ color: "var(--text-secondary)", marginLeft: 6 }}>
                 {client.count.toLocaleString()}
               </span>
             </div>

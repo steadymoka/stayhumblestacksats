@@ -11,12 +11,14 @@ import {
   Cell,
 } from "recharts";
 import { fetchNationsData } from "@/lib/api";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 type NationsData = Awaited<ReturnType<typeof fetchNationsData>>;
 
 export default function BitcoinVsNations() {
   const [data, setData] = useState<NationsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     fetchNationsData()
@@ -49,22 +51,18 @@ export default function BitcoinVsNations() {
       </div>
 
       {/* Key Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
+      <div className="grid-3">
         <div className="card" style={{ textAlign: "center" }}>
           <div className="stat-label">Market Cap</div>
           <div className="stat-big bitcoin-orange">
             ${(data.btcMarketCap / 1e12).toFixed(2)}T
           </div>
-          <div className="stat-label">
-            세계 경제 #{data.btcGdpRank} 규모
-          </div>
+          <div className="stat-label">세계 경제 #{data.btcGdpRank} 규모</div>
         </div>
         <div className="card" style={{ textAlign: "center" }}>
           <div className="stat-label">Network Hashrate</div>
           <div className="stat-big green">{data.hashrate} EH/s</div>
-          <div className="stat-label">
-            전 세계 슈퍼컴퓨터 합산의 수천 배
-          </div>
+          <div className="stat-label">전 세계 슈퍼컴퓨터 합산의 수천 배</div>
         </div>
         <div className="card" style={{ textAlign: "center" }}>
           <div className="stat-label">Daily Security Budget</div>
@@ -78,25 +76,25 @@ export default function BitcoinVsNations() {
       {/* Asset Rankings */}
       <div className="card">
         <div className="card-header">Global Asset Rankings</div>
-        <div style={{ width: "100%", height: 340 }}>
+        <div style={{ width: "100%", height: isMobile ? 300 : 340 }}>
           <ResponsiveContainer>
             <BarChart
               data={data.assetRankings}
               layout="vertical"
-              margin={{ left: 120 }}
+              margin={{ left: isMobile ? 10 : 120, right: 10 }}
             >
               <XAxis
                 type="number"
                 stroke="#8888a0"
-                fontSize={12}
+                fontSize={11}
                 tickFormatter={(v) => `$${v}T`}
               />
               <YAxis
                 dataKey="name"
                 type="category"
                 stroke="#8888a0"
-                fontSize={12}
-                width={110}
+                fontSize={isMobile ? 10 : 12}
+                width={isMobile ? 80 : 110}
                 tick={(props: Record<string, unknown>) => {
                   const x = Number(props.x) || 0;
                   const y = Number(props.y) || 0;
@@ -114,7 +112,7 @@ export default function BitcoinVsNations() {
                       fill={
                         item?.type === "bitcoin" ? "#f7931a" : "#8888a0"
                       }
-                      fontSize={12}
+                      fontSize={isMobile ? 10 : 12}
                       fontWeight={item?.type === "bitcoin" ? 700 : 400}
                     >
                       {item?.flag} {value}
@@ -170,26 +168,31 @@ export default function BitcoinVsNations() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "10px",
+                  gap: isMobile ? "6px" : "10px",
                   padding: isBtc ? "8px 0" : "4px 0",
                 }}
               >
                 <span
                   style={{
-                    width: 24,
-                    fontSize: "0.75rem",
+                    width: 20,
+                    fontSize: "0.7rem",
                     color: "var(--text-secondary)",
                     textAlign: "right",
+                    flexShrink: 0,
                   }}
                 >
                   #{i + 1}
                 </span>
                 <span
                   style={{
-                    width: 130,
-                    fontSize: "0.8rem",
+                    width: isMobile ? 80 : 130,
+                    fontSize: isMobile ? "0.7rem" : "0.8rem",
                     color: isBtc ? "var(--bitcoin-orange)" : "var(--text-primary)",
                     fontWeight: isBtc ? 700 : 400,
+                    flexShrink: 0,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {item.flag} {item.name}
@@ -207,10 +210,11 @@ export default function BitcoinVsNations() {
                 </div>
                 <span
                   style={{
-                    width: 60,
-                    fontSize: "0.8rem",
+                    width: isMobile ? 48 : 60,
+                    fontSize: isMobile ? "0.7rem" : "0.8rem",
                     textAlign: "right",
                     color: isBtc ? "var(--bitcoin-orange)" : "var(--text-secondary)",
+                    flexShrink: 0,
                   }}
                 >
                   ${item.value.toFixed(1)}T
@@ -224,7 +228,7 @@ export default function BitcoinVsNations() {
       {/* Nation State Adoption */}
       <div className="card">
         <div className="card-header">Nation State Adoption Timeline</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {data.adoption
             .sort((a, b) => a.year - b.year)
             .map((item, i) => (
@@ -233,28 +237,28 @@ export default function BitcoinVsNations() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "16px",
-                  padding: "12px 16px",
+                  gap: isMobile ? "10px" : "16px",
+                  padding: isMobile ? "10px 12px" : "12px 16px",
                   background: "var(--bg-secondary)",
                   borderRadius: 8,
                   borderLeft: "3px solid var(--bitcoin-orange)",
                 }}
               >
-                <span style={{ fontSize: "1.5rem" }}>{item.flag}</span>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 600, fontSize: "0.9rem" }}>
+                <span style={{ fontSize: isMobile ? "1.2rem" : "1.5rem", flexShrink: 0 }}>{item.flag}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontWeight: 600, fontSize: isMobile ? "0.8rem" : "0.9rem" }}>
                     {item.country}
                   </div>
                   <div
                     style={{
-                      fontSize: "0.75rem",
+                      fontSize: "0.7rem",
                       color: "var(--text-secondary)",
                     }}
                   >
                     {item.type}
                   </div>
                 </div>
-                <span className="bitcoin-orange" style={{ fontWeight: 700 }}>
+                <span className="bitcoin-orange" style={{ fontWeight: 700, flexShrink: 0, fontSize: isMobile ? "0.85rem" : "1rem" }}>
                   {item.year}
                 </span>
               </div>

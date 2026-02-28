@@ -128,3 +128,93 @@ body {
 .pulse-dot {
   animation: pulse-dot 2s ease-in-out infinite;
 }
+
+/* ── Responsive Grid Utilities ───────────────────────────── */
+
+.grid-2, .grid-3, .grid-4 {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-2 { grid-template-columns: 1fr 1fr; }
+.grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+/* ── Tablet (≤ 768px) ────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .card {
+    padding: 16px;
+  }
+
+  .stat-big {
+    font-size: 1.5rem;
+  }
+
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+
+  .nav-item {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+
+  .quote-box {
+    font-size: 0.8rem;
+    padding: 10px 12px;
+  }
+
+  .whale-row {
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.8rem;
+  }
+}
+
+/* ── Mobile (≤ 480px) ────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .card {
+    padding: 14px;
+    border-radius: 8px;
+  }
+
+  .card-header {
+    font-size: 0.65rem;
+    margin-bottom: 12px;
+  }
+
+  .stat-big {
+    font-size: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+  }
+
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+
+  .quote-box {
+    font-size: 0.75rem;
+    padding: 8px 10px;
+    margin: 10px 0;
+  }
+
+  .nav-item {
+    padding: 5px 10px;
+    font-size: 0.65rem;
+  }
+
+  .whale-row {
+    font-size: 0.75rem;
+    gap: 6px;
+    padding: 8px 0;
+  }
+
+  .badge {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+}

@@ -11,6 +11,7 @@ import {
   Cell,
 } from "recharts";
 import { fetchWhaleData } from "@/lib/api";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 type WhaleData = Awaited<ReturnType<typeof fetchWhaleData>>;
 
@@ -24,6 +25,7 @@ const TYPE_BADGE: Record<string, { className: string; label: string }> = {
 export default function WhaleObservatory() {
   const [data, setData] = useState<WhaleData | null>(null);
   const [loading, setLoading] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     fetchWhaleData()
@@ -56,12 +58,12 @@ export default function WhaleObservatory() {
       </div>
 
       {/* Key Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+      <div className="grid-2">
         <div className="card" style={{ textAlign: "center" }}>
           <div className="stat-label">Gini Coefficient</div>
           <div className="stat-big red">{data.giniCoefficient.toFixed(2)}</div>
           <div className="stat-label">
-            1.0에 가까울수록 부가 집중됨 (참고: 전 세계 부의 지니계수 ~0.89)
+            1.0에 가까울수록 부가 집중됨 (전 세계 ~0.89)
           </div>
         </div>
         <div className="card" style={{ textAlign: "center" }}>
@@ -76,17 +78,17 @@ export default function WhaleObservatory() {
       {/* Wealth Distribution Chart */}
       <div className="card">
         <div className="card-header">Bitcoin Wealth Distribution</div>
-        <div style={{ width: "100%", height: 320 }}>
+        <div style={{ width: "100%", height: isMobile ? 280 : 320 }}>
           <ResponsiveContainer>
             <BarChart
               data={data.wealthDistribution}
               layout="vertical"
-              margin={{ left: 130 }}
+              margin={{ left: isMobile ? 10 : 130, right: 10 }}
             >
               <XAxis
                 type="number"
                 stroke="#8888a0"
-                fontSize={12}
+                fontSize={11}
                 tickFormatter={(v) =>
                   v >= 1000000
                     ? `${(v / 1000000).toFixed(1)}M`
@@ -99,8 +101,8 @@ export default function WhaleObservatory() {
                 dataKey="range"
                 type="category"
                 stroke="#8888a0"
-                fontSize={11}
-                width={120}
+                fontSize={isMobile ? 9 : 11}
+                width={isMobile ? 90 : 120}
               />
               <Tooltip
                 contentStyle={{
@@ -154,17 +156,19 @@ export default function WhaleObservatory() {
                   </div>
                   <code
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: isMobile ? "0.6rem" : "0.7rem",
                       color: "var(--text-secondary)",
                       wordBreak: "break-all",
                     }}
                   >
-                    {addr.address.slice(0, 20)}...{addr.address.slice(-8)}
+                    {isMobile
+                      ? `${addr.address.slice(0, 14)}...${addr.address.slice(-6)}`
+                      : `${addr.address.slice(0, 20)}...${addr.address.slice(-8)}`}
                   </code>
                 </div>
                 {movement && (
                   <div style={{ textAlign: "right", flexShrink: 0 }}>
-                    <div className="bitcoin-orange" style={{ fontSize: "0.85rem" }}>
+                    <div className="bitcoin-orange" style={{ fontSize: isMobile ? "0.75rem" : "0.85rem" }}>
                       {movement.balance.toLocaleString(undefined, { maximumFractionDigits: 2 })} BTC
                     </div>
                   </div>

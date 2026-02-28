@@ -11,12 +11,14 @@ import {
   Cell,
 } from "recharts";
 import { fetchSoundMoneyData } from "@/lib/api";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 type SoundMoneyData = Awaited<ReturnType<typeof fetchSoundMoneyData>>;
 
 export default function SoundMoneyIndex() {
   const [data, setData] = useState<SoundMoneyData | null>(null);
   const [loading, setLoading] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     fetchSoundMoneyData()
@@ -54,13 +56,7 @@ export default function SoundMoneyIndex() {
       </div>
 
       {/* Key Stats */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr",
-          gap: "16px",
-        }}
-      >
+      <div className="grid-4">
         <div className="card" style={{ textAlign: "center" }}>
           <div className="stat-label">Global M2 Supply</div>
           <div className="stat-big red">
@@ -103,7 +99,7 @@ export default function SoundMoneyIndex() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "0.7rem",
+                fontSize: "0.65rem",
                 fontWeight: 700,
                 color: "#0a0a0f",
               }}
@@ -116,7 +112,7 @@ export default function SoundMoneyIndex() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            fontSize: "0.75rem",
+            fontSize: "0.7rem",
             color: "var(--text-secondary)",
           }}
         >
@@ -130,7 +126,7 @@ export default function SoundMoneyIndex() {
         <div className="card-header">
           Currency Devaluation vs BTC (10 Years)
         </div>
-        <div style={{ width: "100%", height: 360 }}>
+        <div style={{ width: "100%", height: isMobile ? 300 : 360 }}>
           <ResponsiveContainer>
             <BarChart
               data={data.currencies.map((c) => ({
@@ -139,12 +135,12 @@ export default function SoundMoneyIndex() {
                 absDevaluation: Math.abs(c.devaluationPercent),
               }))}
               layout="vertical"
-              margin={{ left: 80 }}
+              margin={{ left: isMobile ? 10 : 80, right: 10 }}
             >
               <XAxis
                 type="number"
                 stroke="#8888a0"
-                fontSize={12}
+                fontSize={11}
                 domain={[0, 100]}
                 tickFormatter={(v) => `-${v}%`}
               />
@@ -152,8 +148,8 @@ export default function SoundMoneyIndex() {
                 dataKey="label"
                 type="category"
                 stroke="#8888a0"
-                fontSize={13}
-                width={75}
+                fontSize={isMobile ? 11 : 13}
+                width={isMobile ? 60 : 75}
               />
               <Tooltip
                 contentStyle={{
@@ -188,7 +184,7 @@ export default function SoundMoneyIndex() {
         </div>
         <div
           style={{
-            fontSize: "0.8rem",
+            fontSize: "0.75rem",
             color: "var(--text-secondary)",
             marginTop: 8,
           }}
@@ -201,17 +197,11 @@ export default function SoundMoneyIndex() {
       {data.purchasingPower && (
         <div className="card">
           <div className="card-header">1 BTC의 구매력 변화</div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "16px",
-            }}
-          >
+          <div className="grid-2">
             <div
               style={{
                 background: "var(--bg-secondary)",
-                padding: "16px",
+                padding: isMobile ? "12px" : "16px",
                 borderRadius: 8,
               }}
             >
@@ -229,7 +219,7 @@ export default function SoundMoneyIndex() {
                   key={item}
                   style={{
                     padding: "4px 0",
-                    fontSize: "0.85rem",
+                    fontSize: "0.8rem",
                     color: "var(--text-secondary)",
                   }}
                 >
@@ -240,7 +230,7 @@ export default function SoundMoneyIndex() {
             <div
               style={{
                 background: "var(--bg-secondary)",
-                padding: "16px",
+                padding: isMobile ? "12px" : "16px",
                 borderRadius: 8,
                 border: "1px solid var(--bitcoin-orange)",
               }}
@@ -260,7 +250,7 @@ export default function SoundMoneyIndex() {
                   key={item}
                   style={{
                     padding: "4px 0",
-                    fontSize: "0.85rem",
+                    fontSize: "0.8rem",
                     color: "var(--text-primary)",
                   }}
                 >
